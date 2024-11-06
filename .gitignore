@@ -1,0 +1,15 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Terraform plan files
+*.tfplan
+
+# Diretório do Terraform
+.terraform/
+
+# Arquivos de variáveis de ambiente
+.env
+
+# Chaves de autenticação (exemplo para Google Cloud)
+*.json
