@@ -28,3 +28,6 @@ terraform.rc
 
 # Ignorar arquivos que podem conter dados sensíveis
 *.env
+
+# Ignorar arquivos .hcl
+*.hcl
