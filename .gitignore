@@ -1,15 +1,30 @@
-# Terraform state files
+# Ignorar arquivos de estado do Terraform
 *.tfstate
-*.tfstate.*
+*.tfstate.backup
 
-# Terraform plan files
-*.tfplan
+# Ignorar o arquivo de lock do Terraform (se necessário, você pode versioná-lo, mas geralmente não é recomendado)
+*.terraform.lock.hcl
 
-# Diretório do Terraform
+# Ignorar arquivos de configuração de credenciais
+*.json
+*.pem
+
+# Ignorar diretórios do Terraform
 .terraform/
 
-# Arquivos de variáveis de ambiente
-.env
+# Ignorar logs de falha/crash
+crash.log
 
-# Chaves de autenticação (exemplo para Google Cloud)
-*.json
+# Ignorar arquivos temporários de editor (p. ex., Vim, Emacs, etc.)
+*~
+*.swp
+
+# Ignorar arquivos de configuração de sessão do Terraform
+terraform.rc
+.terraformrc
+
+# Ignorar arquivos de variáveis de ambiente, se contiverem informações sensíveis
+*.tfvars
+
+# Ignorar arquivos que podem conter dados sensíveis
+*.env
