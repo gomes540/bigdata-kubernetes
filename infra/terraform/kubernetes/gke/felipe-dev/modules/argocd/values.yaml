@@ -38,6 +38,9 @@ redisSecretInit:
       memory: 64Mi
 
 server:
+  service:
+    type: LoadBalancer
+    
   resources:
    limits:
      cpu: 100m
