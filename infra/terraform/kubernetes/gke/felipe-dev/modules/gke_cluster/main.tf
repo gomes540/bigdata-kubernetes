@@ -13,4 +13,16 @@ resource "google_container_cluster" "autopilot_cluster" {
 
   # Labels para o cluster
   resource_labels = var.cluster_labels
+
+  # Ensure this is set to false to allow deletion
+  deletion_protection = false  
+}
+
+# Data source para obter as credenciais do Google
+data "google_client_config" "default" {}
+
+# Data source para obter as informações do cluster
+data "google_container_cluster" "gke_cluster" {
+  name     = google_container_cluster.autopilot_cluster.name
+  location = google_container_cluster.autopilot_cluster.location
 }
