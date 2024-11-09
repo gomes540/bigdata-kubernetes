@@ -29,3 +29,30 @@ module "gke_cluster" {
   enable_kubernetes_alpha = var.enable_kubernetes_alpha
   cluster_labels          = var.cluster_labels
 }
+
+module "argocd" {
+  source                     = "./modules/argocd"
+  namespace                  = var.argocd_namespace
+  chart_version              = var.argocd_chart_version
+  chart_repo                 = var.argocd_chart_repo
+  chart_name                 = var.argocd_chart_name
+  k8s_endpoint               = module.gke_cluster.k8s_endpoint
+  k8s_token                  = module.gke_cluster.k8s_token
+  k8s_cluster_ca_certificate = module.gke_cluster.k8s_cluster_ca_certificate
+}
+
+# Configuração do provider Helm para deploy do ArgoCD
+provider "helm" {
+  kubernetes {
+    host                   = module.gke_cluster.k8s_endpoint
+    token                  = module.gke_cluster.k8s_token
+    cluster_ca_certificate = module.gke_cluster.k8s_cluster_ca_certificate
+  }
+}
+
+# Configuração do provider Kubernetes para acesso ao cluster GKE
+provider "kubernetes" {
+  host                   = module.gke_cluster.k8s_endpoint
+  token                  = module.gke_cluster.k8s_token
+  cluster_ca_certificate = module.gke_cluster.k8s_cluster_ca_certificate
+}
