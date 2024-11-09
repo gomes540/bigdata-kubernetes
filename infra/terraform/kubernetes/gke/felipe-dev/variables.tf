@@ -32,3 +32,23 @@ variable "cluster_labels" {
   description = "Labels a serem aplicados no cluster"
   type        = map(string)
 }
+
+variable "argocd_namespace" {
+  description = "Namespace onde o ArgoCD será instalado"
+  type        = string
+}
+
+variable "argocd_chart_version" {
+  description = "Versão do chart do ArgoCD"
+  type        = string
+}
+
+variable "argocd_chart_repo" {
+  description = "Repositório do chart do ArgoCD"
+  type        = string
+}
+
+variable "argocd_chart_name" {
+  description = "Nome do chart do ArgoCD"
+  type        = string
+}
