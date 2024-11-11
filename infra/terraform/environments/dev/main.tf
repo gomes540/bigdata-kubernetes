@@ -22,7 +22,7 @@ resource "google_storage_bucket" "terraform_state" {
 
 # Chamar o módulo para criar o cluster GKE Autopilot
 module "gke_cluster" {
-  source                  = "./modules/gke_cluster"
+  source                  = "../../modules/gke"
   project_id              = var.project_id
   region                  = var.region
   cluster_name            = var.cluster_name
@@ -30,8 +30,9 @@ module "gke_cluster" {
   cluster_labels          = var.cluster_labels
 }
 
+# Chamar o módulo para deployar o Argocd
 module "argocd" {
-  source                     = "./modules/argocd"
+  source                     = "../../modules/argocd"
   namespace                  = var.argocd_namespace
   chart_version              = var.argocd_chart_version
   chart_repo                 = var.argocd_chart_repo
