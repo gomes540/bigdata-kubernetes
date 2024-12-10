@@ -4,9 +4,18 @@
 resource "google_container_cluster" "autopilot_cluster" {
   name     = var.cluster_name
   location = var.region
+  initial_node_count = 3               # Define 3 nós no default node pool
+
+  node_config {
+    machine_type = "e2-medium"         # Tipo de máquina
+    disk_size_gb = 50                  # Boot disk size
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform",
+    ]
+  }
 
   # Configuração para Autopilot Cluster
-  enable_autopilot = true
+  enable_autopilot = false
 
   # Habilitar recursos alpha do Kubernetes (se necessário)
   enable_kubernetes_alpha = var.enable_kubernetes_alpha
