@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: airbyte-dev                    # Nome único da aplicação no ArgoCD
+  namespace: gitops                    # Namespace do ArgoCD
+spec:
+  project: default                     # Projeto no ArgoCD
+  source:
+    repoURL: https://airbytehq.github.io/helm-charts
+    targetRevision: 1.2.0              # Versão do chart Helm
+    chart: airbyte                     # Nome do Helm chart no repositório
+    helm:
+      valueFiles:
+        - values.yaml                  # Caminho simplificado (mesmo diretório que app.yaml)
+  destination:
+    server: https://kubernetes.default.svc  # Cluster Kubernetes de destino
+    namespace: ingestion               # Namespace onde será implantado
+  syncPolicy:
+    automated:
+      prune: true                      # Remove recursos que não estão no Git
+      selfHeal: true                   # Corrige automaticamente discrepâncias detectadas
+    syncOptions:
+      - CreateNamespace=true           # Cria automaticamente o namespace, se necessário
